@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Signup</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="form-container">
+
+  <h1>Create Account</h1>
+
+  <input type="text" id="name" placeholder="Full Name">
+
+  <input type="email" id="email" placeholder="Email Address">
+
+  <input type="password" id="password" placeholder="Password">
+
+  <select id="blood">
+    <option>Select Blood Group</option>
+    <option>A+</option>
+    <option>B+</option>
+    <option>O+</option>
+    <option>AB+</option>
+    <option>A-</option>
+    <option>B-</option>
+    <option>O-</option>
+    <option>AB-</option>
+  </select>
+
+  <select id="division">
+    <option>Dhaka</option>
+    <option>Chattogram</option>
+    <option>Rajshahi</option>
+    <option>Khulna</option>
+    <option>Barishal</option>
+    <option>Sylhet</option>
+    <option>Rangpur</option>
+    <option>Mymensingh</option>
+  </select>
+
+  <input type="text" id="district" placeholder="District">
+
+  <input type="text" id="thana" placeholder="Thana">
+
+  <input type="date" id="date">
+
+  <select id="status">
+    <option value="available">Available</option>
+    <option value="unavailable">Unavailable</option>
+  </select>
+
+  <button onclick="saveUser()">
+    Create Account
+  </button>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
