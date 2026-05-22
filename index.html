@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blood Bank</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Antidote - Real Life Heroes</title>
 
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
+  <div class="overlay"></div>
+
   <div class="container">
 
-    <h1>Blood Bank</h1>
+    <div class="header">
+      <h1>🩸 ANTIDOTE</h1>
+      <p>Real Life Heroes</p>
+    </div>
 
     <div class="form-box">
+
+      <h2>Create Donor Account</h2>
 
       <input type="text" id="name" placeholder="Full Name">
 
       <input type="text" id="phone" placeholder="Phone Number">
 
-      <input type="email" id="email" placeholder="Email">
+      <input type="email" id="email" placeholder="Email Address">
 
       <input type="password" id="password" placeholder="Password">
 
@@ -35,13 +43,69 @@
         <option>AB-</option>
       </select>
 
-      <input type="text" id="division" placeholder="Division">
+      <!-- DIVISION -->
+      <select id="division">
+        <option value="">Select Division</option>
 
-      <input type="text" id="district" placeholder="District">
+        <option>Dhaka</option>
+        <option>Chattogram</option>
+        <option>Rajshahi</option>
+        <option>Khulna</option>
+        <option>Barishal</option>
+        <option>Sylhet</option>
+        <option>Rangpur</option>
+        <option>Mymensingh</option>
+      </select>
 
-      <input type="text" id="thana" placeholder="Thana">
+      <!-- DISTRICT -->
+      <select id="district">
 
-      <label>Last Blood Donate Date</label>
+        <option value="">Select District</option>
+
+        <option>Dhaka</option>
+        <option>Gazipur</option>
+        <option>Narayanganj</option>
+        <option>Tangail</option>
+        <option>Kishoreganj</option>
+        <option>Manikganj</option>
+        <option>Faridpur</option>
+
+        <option>Chattogram</option>
+        <option>Cox's Bazar</option>
+        <option>Comilla</option>
+        <option>Noakhali</option>
+        <option>Feni</option>
+
+        <option>Rajshahi</option>
+        <option>Bogura</option>
+        <option>Pabna</option>
+        <option>Natore</option>
+
+        <option>Khulna</option>
+        <option>Jessore</option>
+        <option>Satkhira</option>
+
+        <option>Barishal</option>
+        <option>Patuakhali</option>
+        <option>Bhola</option>
+
+        <option>Sylhet</option>
+        <option>Moulvibazar</option>
+        <option>Habiganj</option>
+
+        <option>Rangpur</option>
+        <option>Dinajpur</option>
+        <option>Kurigram</option>
+
+        <option>Mymensingh</option>
+        <option>Jamalpur</option>
+        <option>Netrokona</option>
+
+      </select>
+
+      <input type="text" id="thana" placeholder="Type Your Thana">
+
+      <label>Last Blood Donation Date</label>
 
       <input type="date" id="donateDate">
 
@@ -50,7 +114,9 @@
         <option value="unavailable">Unavailable</option>
       </select>
 
-      <button onclick="createAccount()">Create Account</button>
+      <button onclick="createAccount()">
+        SAVE DONOR
+      </button>
 
     </div>
 
@@ -65,7 +131,6 @@
       let name = document.getElementById("name").value;
       let phone = document.getElementById("phone").value;
       let email = document.getElementById("email").value;
-      let password = document.getElementById("password").value;
       let blood = document.getElementById("blood").value;
       let division = document.getElementById("division").value;
       let district = document.getElementById("district").value;
@@ -74,51 +139,60 @@
       let status = document.getElementById("status").value;
 
       let today = new Date();
-      let lastDonate = new Date(donateDate);
+      let donate = new Date(donateDate);
 
-      let diffTime = today - lastDonate;
+      let diffTime = today - donate;
 
-      let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      let diffDays = Math.floor(
+        diffTime / (1000 * 60 * 60 * 24)
+      );
 
       let countdown = "";
 
       if(status === "available"){
-        countdown = diffDays + 1 + " Days Ascending";
-      }else{
-        countdown = 120 - diffDays + " Days Remaining";
+        countdown = (diffDays + 1) + " Days Active";
+      }
+      else{
+        countdown = (120 - diffDays) + " Days Remaining";
       }
 
-      let colorClass = status === "available" ? "available" : "unavailable";
+      let statusClass =
+        status === "available"
+        ? "available"
+        : "unavailable";
 
       let card = `
-      
+
       <div class="card">
 
-        <h2>${name}</h2>
+        <div class="top">
 
-        <p><strong>Phone:</strong> ${phone}</p>
+          <div>
+            <h2>${name}</h2>
+            <span>${blood}</span>
+          </div>
 
-        <p><strong>Email:</strong> ${email}</p>
+          <div class="${statusClass}">
+            ${status.toUpperCase()}
+          </div>
 
-        <p><strong>Blood Group:</strong> ${blood}</p>
+        </div>
 
-        <p><strong>Location:</strong> ${division}, ${district}, ${thana}</p>
+        <p>📞 ${phone}</p>
 
-        <p><strong>Blood Given:</strong> ${diffDays} days ago</p>
+        <p>📧 ${email}</p>
 
-        <p class="${colorClass}">
-          ${status.toUpperCase()}
-        </p>
+        <p>📍 ${division}, ${district}, ${thana}</p>
 
-        <p><strong>Countdown:</strong> ${countdown}</p>
+        <p>🩸 Donated ${diffDays} days ago</p>
+
+        <p>⏳ ${countdown}</p>
 
       </div>
 
       `;
 
       document.getElementById("users").innerHTML += card;
-
-      document.querySelectorAll("input").forEach(input => input.value = "");
 
     }
 
